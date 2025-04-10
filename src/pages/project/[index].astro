@@ -1,0 +1,73 @@
+---
+import projects from "@data/projects.json";
+import Header from "@components/Header/project.astro";
+
+export function getStaticPaths() {
+  return projects.map((_, index) => (
+    { params: { index: index.toString() } }
+  ));
+}
+
+import { marked } from "marked";
+import Layout from "@layouts/Markdown.astro";
+import Image from "@components/Project/image.astro";
+
+const { index } = Astro.params;
+const idx = parseInt(index as string, 0);
+const project = projects[idx];
+
+const publicBaseUrl = `https://github.com/${project.github.user}/${project.github.repository}/blob/${project.github.branch}/`;
+const baseUrl = `https://raw.githubusercontent.com/${project.github.user}/${project.github.repository}/refs/heads/${project.github.branch}/`;
+
+const response = await fetch(baseUrl + "README.md");
+const markdown = await response.text();
+const html = await marked.parse(markdown);
+
+// Reemplazar enlaces relativos en etiquetas <img>
+const withAbsoluteImages = html.replace(/<img\s+([^>]*?src=["'])([^"']+)(["'][^>]*?)>/g, (match, beforeSrc, src, afterSrc) => {
+  const absoluteUrl = new URL(src, baseUrl).href;
+  return `<img ${beforeSrc}${absoluteUrl}${afterSrc}>`;
+});
+
+// Reemplazar enlaces relativos en etiquetas <a>
+const content = withAbsoluteImages.replace(/<a\s+([^>]*?href=["'])([^"']+)(["'][^>]*?)>/g, (match, beforeHref, href, afterHref) => {
+  if (!href.startsWith("http") && !href.startsWith("#")) {
+    const absoluteUrl = new URL(href, publicBaseUrl).href;
+    return `<a ${beforeHref}${absoluteUrl}${afterHref}>`;
+  }
+  return match;
+});
+---
+<Layout>
+  <Header />
+	<main>
+    <section transition:name={`project-cover-${idx}`} class="project-details-card">
+      <Image svgClass="project-cover" title={project.title} subtitle={project.subtitle} />
+      <h4 class="project-details-title" set:html={project.title} />
+      <h6 class="project-details-subtitle" set:html={project.subtitle} />
+
+      <div class="project-details-buttons">
+        <a 
+          class="project-details-button" 
+          href={`https://github.com/${project.github.user}/${project.github.repository}/tree/${project.github.branch}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Ver en Github"
+        >
+          <i class="devicon-github-original" />
+          Ver en Github
+        </a>
+      </div>
+
+      <div class="project-details-tags">
+        {project.skills?.map((tag) => (
+          <a href={`/skill/${tag}`} class="project-details-tag" set:html={tag} />
+        ))}
+      </div>
+
+      <p class="prokect-details-description" class="text-gray-500 line-clamp-3" set:html={project.descriptiion} />
+    </section>
+
+    <article class="markdown-container" set:html={content} />
+  </main>
+</Layout>

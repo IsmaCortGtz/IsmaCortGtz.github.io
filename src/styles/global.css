@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme {
+	--color-brand-text: #c7cbe0;
+	--color-brand-bg: #010411;
+	--color-brand-hd: #061333;
+	--color-brand-box: #18263b;
+	--color-brand-light: #0d52bb;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: CascadiaCode;
+	src: url("/CascadiaCode-Bold.ttf");
+}
+
+html, body {
+	scroll-behavior: smooth;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--color-brand-bg);
+	color: var(--color-brand-text);
+	color-scheme: dark;
+	font-family: 'CascadiaCode', 'Courier New', Courier, sans-serif;
+}

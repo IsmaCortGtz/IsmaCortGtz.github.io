@@ -1,0 +1,35 @@
+header.project-header {
+  display: flex; 
+  position: sticky; 
+  top: 0.5rem; 
+  z-index: 50; 
+  flex-direction: row; 
+  gap: 1rem; 
+  justify-content: center; 
+  align-items: center;
+  border: 1px solid color-mix(in oklab, var(--color-brand-light) 20%, transparent); 
+  border-radius: 9999px;  
+  width: 90%; 
+  max-width: 20rem; 
+  background-color: var(--color-brand-hd);
+  margin: 0 auto;
+  max-width: 20rem;
+}
+
+a.project-header-link {
+  color: var(--color-brand-text);
+  text-decoration: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem; 
+  padding-left: 1rem;
+  padding-right: 1rem; 
+  border-radius: 9999px; 
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms; 
+  cursor: pointer; 
+}
+
+a.project-header-link:hover {
+  background-color: color-mix(in oklab, var(--color-brand-box) 50%, transparent);
+}

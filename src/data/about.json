@@ -1,0 +1,9 @@
+{
+  "title": "¡Hola! Soy <span class='text-amber-300'>Ismael Cortés Gutiérrez</span> 👋😁",
+  "descriptiion": "Desarrollador Web de <span class='text-green-500'>Mé</span>xi<span class='text-red-400'>co</span> 🇲🇽, con experiencia en <span class='text-blue-400'>Backend</span> y <span class='text-blue-400'>Frontend</span>, entusiasta del desarrollo de videojuegos y software nativo. Me gusta aprender nuevas tecnologías y mejorar mis habilidades constantemente. Actualmente, estudiante de la carrera TSU Desarrollo de Software Multiplataforma en la <span class='text-green-500'>UTJ</span>.",
+  "avatar": "https://avatars.githubusercontent.com/u/61439641",
+  "social": [
+    { "icon": "devicon-github-original", "label": "IsmaCortGtz", "url": "https://github.com/IsmaCortGtz" },
+    { "icon": "devicon-linkedin-plain", "label": "Ismael Cortés Gutiérrez", "url": "https://www.linkedin.com/in/ismael-cort%C3%A9s-guti%C3%A9rrez-193103304/" }
+  ]
+}

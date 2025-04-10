@@ -1,0 +1,71 @@
+---
+import skills from "@data/skills.json";
+import projects from "@data/projects.json";
+
+const skillList: { [key: string]: string } = {};
+Object.values(skills).forEach((group: any) => {
+  Object.keys(group).forEach((skill) => {
+    skillList[skill] = group[skill];
+  });
+});
+
+export function getStaticPaths() {
+  const skillList: { [key: string]: string } = {};
+  Object.values(skills).forEach((group: any) => {
+    Object.keys(group).forEach((skill) => {
+      skillList[skill] = group[skill];
+    });
+  });
+
+  return Object.keys(skillList).map((skill) => ({
+    params: { name: skill },
+  }));
+}
+
+
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header/project.astro";
+import Image from "@components/Project/image.astro";
+
+const { name } = Astro.params;
+const projectsList = projects.filter(project => project.skills.includes(name));
+---
+
+<Layout>
+  <Header />
+  <main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-10 pb-10">
+    <section
+      transition:name={`skill-animation-${name}`}
+      title={name}
+      aria-label={name}
+      class="flex flex-row items-center justify-center w-full gap-4 bg-brand-box/50 p-3 rounded-lg border border-brand-box/20"
+    >
+      <img class="w-18 rounded-lg" src={skillList[name]} />
+      <span set:html={name} class="text-2xl" />
+    </section>
+
+
+		<h2 id="projects" class="my-8 pb-4 border-b-2 border-b-brand-box/80 text-3xl flex items-center gap-2">
+			<i class="ti ti-settings-filled"></i>
+			Proyectos
+		</h2>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
+			{
+				projectsList.map((project, idx) => (
+					<a
+					  transition:name={`project-cover-${idx}`}
+						href={`/project/${idx}`}
+						title={project.descriptiion}
+						class="flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+					>
+						<Image title={project.title} subtitle={project.subtitle} />
+						<h4 set:html={project.title} />
+						<p class="text-gray-500 line-clamp-3" set:html={project.descriptiion} />
+					</a>
+				))
+			}
+		</section>
+
+  </main>
+</Layout>
