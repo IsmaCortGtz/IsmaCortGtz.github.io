@@ -1,5 +1,6 @@
 [
   {
+    "id": "los-caninos",
     "title": "Los Caninos",
     "subtitle": "Vanilla PHP & MySQL",
     "descriptiion": "Sistema de administración interno para una veterinaria. Permite administrar empleados, clientes, mascotas, inventario y ventas/servicios. Se pueden generar reportes.",
@@ -7,6 +8,7 @@
     "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Git", "Github"]
   },
   {
+    "id": "la-flamita-v1",
     "title": "La Flamita 1.0",
     "subtitle": "Laravel, Kotlin & MySQL",
     "descriptiion": "Software de administrativo y para clientes de una taquería. Permite administrar empleados, clientes, inventario y ventas. Expone una API para uso de una App Android.",
@@ -14,6 +16,7 @@
     "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Laravel", "Kotlin", "C++", "Git", "Github"]
   },
   {
+    "id": "la-flamita-v2",
     "title": "La Flamita 2.0",
     "subtitle": "Express, React, React Native & MongoDB",
     "descriptiion": "Rediseño migrando de Laravel a Express-React. Además, ahora la app movil esta desarrollada utilizando React Native.",

@@ -3,8 +3,8 @@ import projects from "@data/projects.json";
 import Header from "@components/Header/project.astro";
 
 export function getStaticPaths() {
-  return projects.map((_, index) => (
-    { params: { index: index.toString() } }
+  return projects.map(project => (
+    { params: { id: project.id } }
   ));
 }
 
@@ -12,9 +12,12 @@ import { marked } from "marked";
 import Layout from "@layouts/Markdown.astro";
 import Image from "@components/Project/image.astro";
 
-const { index } = Astro.params;
-const idx = parseInt(index as string, 0);
-const project = projects[idx];
+const { id } = Astro.params;
+const project = projects.find(project => project.id === id);
+
+if (!project) {
+  throw new Error(`Project with id ${id} not found`);
+}
 
 const publicBaseUrl = `https://github.com/${project.github.user}/${project.github.repository}/blob/${project.github.branch}/`;
 const baseUrl = `https://raw.githubusercontent.com/${project.github.user}/${project.github.repository}/refs/heads/${project.github.branch}/`;
@@ -41,7 +44,7 @@ const content = withAbsoluteImages.replace(/<a\s+([^>]*?href=["'])([^"']+)(["'][
 <Layout>
   <Header />
 	<main>
-    <section transition:name={`project-cover-${idx}`} class="project-details-card">
+    <section transition:name={`project-cover-${id}`} class="project-details-card">
       <Image svgClass="project-cover" title={project.title} subtitle={project.subtitle} />
       <h4 class="project-details-title" set:html={project.title} />
       <h6 class="project-details-subtitle" set:html={project.subtitle} />
