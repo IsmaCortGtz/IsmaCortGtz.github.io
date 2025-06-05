@@ -1,23 +1,22 @@
 ---
-import projects from "@data/projects.json";
-import Header from "@components/Header/project.astro";
+import { getProjectsParams } from "@/utils/dynamicParams";
 
-export function getStaticPaths() {
-  return projects.map(project => (
-    { params: { id: project.id } }
-  ));
+export async function getStaticPaths() {
+  return getProjectsParams();
 }
 
+import Header from "@/components/Header/project.astro";
+import { loadProject } from "@/utils/loadCollection";
 import { marked } from "marked";
-import Layout from "@layouts/Markdown.astro";
-import Image from "@components/Project/image.astro";
+import Layout from "@/layouts/Markdown.astro";
+import Image from "@/components/Project/image.astro";
 
 const { id } = Astro.params;
-const project = projects.find(project => project.id === id);
+const { lang } = Astro.params;
 
-if (!project) {
-  throw new Error(`Project with id ${id} not found`);
-}
+if (!id || !lang) throw new Error("Project ID and language must be provided");
+const project = await loadProject(id, lang);
+if (!project) throw new Error(`Project with id ${id} not found`);
 
 const publicBaseUrl = `https://github.com/${project.github.user}/${project.github.repository}/blob/${project.github.branch}/`;
 const baseUrl = `https://raw.githubusercontent.com/${project.github.user}/${project.github.repository}/refs/heads/${project.github.branch}/`;
@@ -64,11 +63,11 @@ const content = withAbsoluteImages.replace(/<a\s+([^>]*?href=["'])([^"']+)(["'][
 
       <div class="project-details-tags">
         {project.skills?.map((tag) => (
-          <a href={`/skill/${tag}`} class="project-details-tag" set:html={tag} />
+          <a href={`../skill/${tag}`} class="project-details-tag" set:html={tag} />
         ))}
       </div>
 
-      <p class="prokect-details-description" class="text-gray-500 line-clamp-3" set:html={project.descriptiion} />
+      <p class="prokect-details-description" class="text-gray-500 line-clamp-3" set:html={project.description} />
     </section>
 
     <article class="markdown-container" set:html={content} />
