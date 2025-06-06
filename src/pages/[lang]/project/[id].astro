@@ -6,7 +6,7 @@ export async function getStaticPaths() {
 }
 
 import Header from "@/components/Header/project.astro";
-import { loadProject } from "@/utils/loadCollection";
+import { loadProject, loadUI } from "@/utils/loadCollection";
 import { marked } from "marked";
 import Layout from "@/layouts/Markdown.astro";
 import Image from "@/components/Project/image.astro";
@@ -24,6 +24,7 @@ const baseUrl = `https://raw.githubusercontent.com/${project.github.user}/${proj
 const response = await fetch(baseUrl + "README.md");
 const markdown = await response.text();
 const html = await marked.parse(markdown);
+const ui = await loadUI(lang);
 
 // Reemplazar enlaces relativos en etiquetas <img>
 const withAbsoluteImages = html.replace(/<img\s+([^>]*?src=["'])([^"']+)(["'][^>]*?)>/g, (match, beforeSrc, src, afterSrc) => {
@@ -57,7 +58,7 @@ const content = withAbsoluteImages.replace(/<a\s+([^>]*?href=["'])([^"']+)(["'][
           title="Ver en Github"
         >
           <i class="devicon-github-original" />
-          Ver en Github
+          {ui.view_github}
         </a>
       </div>
 

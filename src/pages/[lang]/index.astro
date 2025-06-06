@@ -9,13 +9,14 @@ export function getStaticPaths() {
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header/header.astro";
 import Image from "@/components/Project/image.astro";
-import { loadCollection, loadProjects } from '@/utils/loadCollection';
+import { loadCollection, loadProjects, loadUI } from '@/utils/loadCollection';
 import type { Profile, Skills } from '@/interfaces/Content';
 const { lang } = Astro.params;
 
 const profile  = await loadCollection<Profile> ('profile',  lang);
 const skills   = await loadCollection<Skills>  ('skills',   lang);
 const projects = await loadProjects(lang);
+const ui       = await loadUI(lang);
 ---
 
 <Layout>
@@ -59,7 +60,7 @@ const projects = await loadProjects(lang);
 		<!-- PROJECTS -->
 		<h2 id="projects" class="mt-16 mb-8 text-3xl flex items-center gap-2">
 			<i class="ti ti-settings-filled"></i>
-			Proyectos
+			{ui.projects}
 		</h2>
 
 		<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -85,7 +86,7 @@ const projects = await loadProjects(lang);
 		<!-- SKILLS -->
 		<h2 id="skills" class="mt-16 mb-8 text-3xl flex items-center gap-2">
 			<i class="ti ti-shield-filled"></i>
-			Habilidades
+			{ui.skills}
 		</h2>
 
 			{Object.entries(skills).map(([subtitle, cards]) => (

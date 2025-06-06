@@ -11,6 +11,13 @@ export async function loadCollection<T>(collection: string, lang: string): Promi
   return (data as T);
 }
 
+export async function loadUI(lang: string) {
+  const ui = await getEntry('ui', lang);
+  if (!ui) throw new Error(`UI collection not found`);
+
+  return ui.data;
+}
+
 export async function loadProjects(lang: string): Promise<Projects> {
   const projects = await getCollection('projects');
   if (!projects) throw new Error(`Projects collection not found`);

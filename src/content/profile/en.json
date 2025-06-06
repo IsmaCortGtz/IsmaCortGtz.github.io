@@ -1,6 +1,6 @@
 {
   "title": "Hi! I'm <span class='text-amber-300'>Ismael Cortes Gutierrez</span> 👋😁",
-  "description": "Desarrollador Web de <span class='text-green-500'>Mé</span>xi<span class='text-red-400'>co</span> 🇲🇽, con experiencia en <span class='text-blue-400'>Backend</span> y <span class='text-blue-400'>Frontend</span>, entusiasta del desarrollo de videojuegos y software nativo. Me gusta aprender nuevas tecnologías y mejorar mis habilidades constantemente. Actualmente, estudiante de la carrera TSU Desarrollo de Software Multiplataforma en la <span class='text-green-500'>UTJ</span>.",
+  "description": "Web Developer from <span class='text-green-500'>Mé</span>xi<span class='text-red-400'>co</span> 🇲🇽, with experience in <span class='text-blue-400'>Backend</span> and <span class='text-blue-400'>Frontend</span>, video game and native software development enthusiast. I like to learn new technologies and constantly improve my skills. Currently, student of the TSU Multiplatform Software Development degree at the <span class='text-green-500'>UTJ</span>.",
   "avatar": "https://avatars.githubusercontent.com/u/61439641",
   "social": [
     { "icon": "devicon-github-original", "label": "IsmaCortGtz", "url": "https://github.com/IsmaCortGtz" },

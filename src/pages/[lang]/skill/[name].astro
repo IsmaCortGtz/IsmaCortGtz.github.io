@@ -9,7 +9,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header/project.astro";
 import Image from "@/components/Project/image.astro";
 import type { Skills } from "@/interfaces/Content";
-import { loadCollection, loadProjects } from "@/utils/loadCollection";
+import { loadCollection, loadProjects, loadUI } from "@/utils/loadCollection";
 import flatSkills from "@/utils/flatSkills";
 
 const { lang } = Astro.params;
@@ -21,6 +21,7 @@ const projects = await loadProjects(lang);
 
 const { name } = Astro.params;
 const projectsList = projects.filter(project => project.skills.includes(name));
+const ui = await loadUI(lang);
 ---
 
 <Layout>
@@ -39,7 +40,7 @@ const projectsList = projects.filter(project => project.skills.includes(name));
 
 		<h2 id="projects" class="my-8 pb-4 border-b-2 border-b-brand-box/80 text-3xl flex items-center gap-2">
 			<i class="ti ti-settings-filled"></i>
-			Proyectos
+			{ui.projects}
 		</h2>
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-5">

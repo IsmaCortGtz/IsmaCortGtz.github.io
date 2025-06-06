@@ -1,8 +1,8 @@
 {
-    "id": "la-flamita-v1",
-    "title": "La Flamita 1.0",
-    "subtitle": "Laravel, Kotlin & MySQL",
-    "description": "Software de administrativo y para clientes de una taquería. Permite administrar empleados, clientes, inventario y ventas. Expone una API para uso de una App Android.",
-    "github": { "user": "InterdataUTJ", "repository": "la-flamita", "branch": "la-flamita-v1.0" },
-    "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Laravel", "Kotlin", "C++", "Git", "Github"]
-  }
+  "id": "la-flamita-v1",
+  "title": "La Flamita 1.0",
+  "subtitle": "Laravel, Kotlin & MySQL",
+  "description": "Software de administrativo y para clientes de una taquería. Permite administrar empleados, clientes, inventario y ventas. Expone una API para uso de una App Android.",
+  "github": { "user": "InterdataUTJ", "repository": "la-flamita", "branch": "la-flamita-v1.0" },
+  "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Laravel", "Kotlin", "C++", "Git", "Github"]
+}

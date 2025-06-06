@@ -1,8 +1,8 @@
 {
-    "id": "la-flamita-v2",
-    "title": "La Flamita 2.0",
-    "subtitle": "Express, React, React Native & MongoDB",
-    "description": "Rediseño migrando de Laravel a Express-React. Además, ahora la app movil esta desarrollada utilizando React Native.",
-    "github": { "user": "InterdataUTJ", "repository": "la-flamita", "branch": "master" },
-    "skills": ["JavaScript", "TypeScript", "Express", "React", "React Native", "C++", "Git", "Github", "Docker", "MongoDB"]
-  }
+  "id": "la-flamita-v2",
+  "title": "La Flamita 2.0",
+  "subtitle": "Express, React, React Native & MongoDB",
+  "description": "Rediseño migrando de Laravel a Express-React. Además, ahora la app movil esta desarrollada utilizando React Native.",
+  "github": { "user": "InterdataUTJ", "repository": "la-flamita", "branch": "master" },
+  "skills": ["JavaScript", "TypeScript", "Express", "React", "React Native", "C++", "Git", "Github", "Docker", "MongoDB"]
+}

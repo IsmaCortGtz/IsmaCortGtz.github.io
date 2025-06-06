@@ -1,8 +1,8 @@
 {
-    "id": "los-caninos",
-    "title": "Los Caninos",
-    "subtitle": "Vanilla PHP & MySQL",
-    "description": "Sistema de administración interno para una veterinaria. Permite administrar empleados, clientes, mascotas, inventario y ventas/servicios. Se pueden generar reportes.",
-    "github": { "user": "InterdataUTJ", "repository": "los-caninos", "branch": "master" },
-    "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Git", "Github"]
-  }
+  "id": "los-caninos",
+  "title": "Canines",
+  "subtitle": "Vanilla PHP & MySQL",
+  "description": "Internal management system for a veterinary clinic. Allows you to manage employees, clients, pets, inventory, and sales/services. Reports can be generated.",
+  "github": { "user": "InterdataUTJ", "repository": "los-caninos", "branch": "master" },
+  "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Git", "Github"]
+}

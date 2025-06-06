@@ -44,4 +44,14 @@ const projects = defineCollection({
   })
 });
 
-export const collections = { profile, skills, projects };
+const ui = defineCollection({
+  loader: glob({ pattern: "*.json", base: "./src/content/ui" }),
+  schema: z.object({
+    projects: z.string(),
+    skills: z.string(),
+    go_back: z.string(),
+    view_github: z.string(),
+  })
+});
+
+export const collections = { profile, skills, projects, ui };
