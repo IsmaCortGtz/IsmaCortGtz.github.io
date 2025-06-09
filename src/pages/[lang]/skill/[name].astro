@@ -1,35 +1,27 @@
 ---
-import skills from "@data/skills.json";
-import projects from "@data/projects.json";
+import { getSkillsParams } from "@/utils/dynamicParams";
 
-const skillList: { [key: string]: string } = {};
-Object.values(skills).forEach((group: any) => {
-  Object.keys(group).forEach((skill) => {
-    skillList[skill] = group[skill];
-  });
-});
-
-export function getStaticPaths() {
-  const skillList: { [key: string]: string } = {};
-  Object.values(skills).forEach((group: any) => {
-    Object.keys(group).forEach((skill) => {
-      skillList[skill] = group[skill];
-    });
-  });
-
-  return Object.keys(skillList).map((skill) => ({
-    params: { name: skill },
-  }));
+export async function getStaticPaths() {
+  return getSkillsParams();
 }
 
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header/project.astro";
+import Image from "@/components/Project/image.astro";
+import type { Skills } from "@/interfaces/Content";
+import { loadCollection, loadProjects, loadUI } from "@/utils/loadCollection";
+import flatSkills from "@/utils/flatSkills";
 
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header/project.astro";
-import Image from "@components/Project/image.astro";
-import { promise } from "astro:schema";
+const { lang } = Astro.params;
+if (!lang) throw new Error("Language parameter is required");
+
+const skills   = await loadCollection<Skills>('skills',   lang);
+const skillList = flatSkills(skills);
+const projects = await loadProjects(lang);
 
 const { name } = Astro.params;
 const projectsList = projects.filter(project => project.skills.includes(name));
+const ui = await loadUI(lang);
 ---
 
 <Layout>
@@ -48,7 +40,7 @@ const projectsList = projects.filter(project => project.skills.includes(name));
 
 		<h2 id="projects" class="my-8 pb-4 border-b-2 border-b-brand-box/80 text-3xl flex items-center gap-2">
 			<i class="ti ti-settings-filled"></i>
-			Proyectos
+			{ui.projects}
 		</h2>
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -56,13 +48,13 @@ const projectsList = projects.filter(project => project.skills.includes(name));
 				projectsList.map((project, idx) => (
 					<a
 					  transition:name={`project-cover-${project.id}`}
-						href={`/project/${project.id}`}
-						title={project.descriptiion}
+						href={`../project/${project.id}`}
+						title={project.description}
 						class="flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
 					>
 						<Image title={project.title} subtitle={project.subtitle} />
 						<h4 set:html={project.title} />
-						<p class="text-gray-500 line-clamp-3" set:html={project.descriptiion} />
+						<p class="text-gray-500 line-clamp-3" set:html={project.description} />
 					</a>
 				))
 			}

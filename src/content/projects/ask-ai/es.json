@@ -1,0 +1,8 @@
+{
+  "id": "ask-ai",
+  "title": "Ask.ai",
+  "subtitle": "React Native & Transformers.js",
+  "description": "App desarrollada en React Native para ejecutar LLM en local usando Transformers.js",
+  "github": { "user": "IsmaCortGtz", "repository": "Ask.ai", "branch": "main" },
+  "skills": ["TypeScript", "JavaScript", "React Native", "Git", "Github"]
+}

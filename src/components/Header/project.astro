@@ -1,7 +1,10 @@
 ---
+import { loadUI } from '@/utils/loadCollection';
+const { lang } = Astro.params;
+const ui = await loadUI(lang as string);
 import './project.css';
 ---
 
 <header class="project-header">
-  <a onclick="window.history.back()" class="project-header-link">Volver</a>
+  <a onclick="window.history.back()" class="project-header-link">{ui.go_back}</a>
 </header>

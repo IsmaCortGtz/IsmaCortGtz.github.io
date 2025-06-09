@@ -1,0 +1,35 @@
+/* Colores e iconos por tipo */
+.admonition-note      { --admonition-color: #0969da; }
+.admonition-info      { --admonition-color: #1b7c83; }
+.admonition-warning   { --admonition-color: #e3b341; }
+.admonition-tip       { --admonition-color: #3fb950; }
+.admonition-important { --admonition-color: #d1242f; }
+
+.admonition-note      .admonition-icon::before { content: "💡"; }
+.admonition-info      .admonition-icon::before { content: "ℹ️"; }
+.admonition-warning   .admonition-icon::before { content: "⚠️"; }
+.admonition-tip       .admonition-icon::before { content: "📝"; }
+.admonition-important .admonition-icon::before { content: "❗"; }
+
+.admonition {
+  border-left: 4px solid var(--admonition-color) !important;
+  background: transparent !important;
+  margin: 2em 0 !important;
+  padding: 1em !important;
+  box-shadow: 0 1px 2px rgba(27,31,35,0.04) !important;
+  color: #d3d8dd !important;
+}
+
+.admonition header {
+  color: #d3d8dd !important;
+}
+
+
+.admonition-title {
+  font-weight: bold !important;
+  color: var(--admonition-color) !important;
+}
+
+.admonition-content {
+  display: inline !important;
+}

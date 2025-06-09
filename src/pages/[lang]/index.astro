@@ -1,0 +1,112 @@
+---
+export function getStaticPaths() {
+  return [
+		{ params: { lang: "es" } },
+		{ params: { lang: "en" } },
+	]
+}
+
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header/header.astro";
+import Image from "@/components/Project/image.astro";
+import { loadCollection, loadProjects, loadUI } from '@/utils/loadCollection';
+import type { Profile, Skills } from '@/interfaces/Content';
+const { lang } = Astro.params;
+
+const profile  = await loadCollection<Profile> ('profile',  lang);
+const skills   = await loadCollection<Skills>  ('skills',   lang);
+const projects = await loadProjects(lang);
+const ui       = await loadUI(lang);
+---
+
+<Layout>
+	<Header />
+	<main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-20">
+		
+		<!-- ABOUT ME - HEADER -->
+		<section
+			class="flex flex-col-reverse md:flex-row gap-10 items-center justify-center mb-10"
+		>
+			<section class="flex-1">
+				<h2 class="text-3xl mb-4" set:html={profile.title} />
+				<p class="leading-7" set:html={profile.description} />
+				<section class="flex flex-row gap-4 mt-4 items-center flex-wrap">
+					{
+						profile.social.map((el) => (
+							<a
+								href={el.url}
+								target="_blank"
+								class="bg-brand-box/50 p-2 rounded-lg transition-all flex flex-row items-center gap-2 border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+								rel="noopener noreferrer"
+								aria-label={el.label}
+							>
+								<i class={`${el.icon} text-2xl`} />
+								<span  set:html={el.label} />
+							</a>
+						))
+					}
+				</section>
+			</section>
+			<img
+				class="rounded-full w-3xs border-2 border-brand-light/10"
+				src={profile.avatar}
+				alt="ismacortgtz"
+			/>
+		</section>
+
+
+
+
+		<!-- PROJECTS -->
+		<h2 id="projects" class="mt-16 mb-8 text-3xl flex items-center gap-2">
+			<i class="ti ti-settings-filled"></i>
+			{ui.projects}
+		</h2>
+
+		<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+			{
+				projects.map((project, idx) => (
+					<a
+						transition:name={`project-cover-${project.id}`}
+						href={`${lang}/project/${project.id}`}
+						title={project.description}
+						class="flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+					>
+						<Image title={project.title} subtitle={project.subtitle} />
+						<h4 set:html={project.title} />
+						<p class="text-gray-500 line-clamp-3" set:html={project.description} />
+					</a>
+				))
+			}
+		</section>
+
+
+
+
+		<!-- SKILLS -->
+		<h2 id="skills" class="mt-16 mb-8 text-3xl flex items-center gap-2">
+			<i class="ti ti-shield-filled"></i>
+			{ui.skills}
+		</h2>
+
+			{Object.entries(skills).map(([subtitle, cards]) => (
+				<>
+					<h3 class="text-xl mb-4" set:html={subtitle} />
+					<section class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5 mb-14">
+						{Object.entries(cards).map(([title, image]) => (
+							<a
+								transition:name={`skill-animation-${title}`}
+								href={`${lang}/skill/${title}`}
+								title={title}
+								aria-label={title}
+								class="flex flex-col gap-2 justify-center items-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+							>
+								<img class="w-1/2 mx-auto rounded-lg" src={image} />
+								<span set:html={title} />
+							</a>
+						))}
+					</section>
+				</>
+			))}
+	</main>
+</Layout>
