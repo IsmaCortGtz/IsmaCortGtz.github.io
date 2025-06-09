@@ -27,12 +27,28 @@ try {
   if (!response.ok) throw new Error(`Failed to fetch README.${lang}.md for project ${id}: ${response.statusText}`);
 } catch (error) {
   response = await fetch(baseUrl + "README.md");
-    if (!response.ok) throw new Error(`Failed to fetch README.md for project ${id}: ${response.statusText}`);
+    if (!response.ok) throw new Error(`Failed to fetch README.md for project ${id}: ${response.statusText}, ${response.url}`);
 }
 
 if (!response.ok) throw new Error(`Failed to fetch README.md for project ${id}: ${response.statusText}`);
 const markdown = await response.text();
-const html = await marked.parse(markdown);
+let html = await marked.parse(markdown);
+
+// Custom style for admonitions to match github style
+html = html.replace(
+  /<blockquote>\s*<p>\[!(NOTE|INFO|WARNING|TIP|IMPORTANT)\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+  (match, type, content) => {
+    const lower = type.toLowerCase();
+    return `<blockquote class="admonition admonition-${lower}">
+      <header>
+        <span class="admonition-icon"></span>
+        <strong class="admonition-title">${type.charAt(0) + type.slice(1).toLowerCase()}</strong>  
+      </header>
+      <span class="admonition-content">${content.trim()}</span>
+    </blockquote>`;
+  }
+);
+
 const ui = await loadUI(lang);
 
 // Reemplazar enlaces relativos en etiquetas <img>

@@ -1,3 +1,5 @@
+@import './markdown-admonition.css';
+
 :root {
 	--color-brand-text: #c7cbe0;
 	--color-brand-bg: #010411;
