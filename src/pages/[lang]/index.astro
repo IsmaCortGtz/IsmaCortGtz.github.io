@@ -68,7 +68,7 @@ const ui       = await loadUI(lang);
 				projects.map((project, idx) => (
 					<a
 						transition:name={`project-cover-${project.id}`}
-						href={`${lang}/project/${project.id}`}
+						href={`/${lang}/project/${project.id}`}
 						title={project.description}
 						class="flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
 					>
@@ -96,7 +96,7 @@ const ui       = await loadUI(lang);
 						{Object.entries(cards).map(([title, image]) => (
 							<a
 								transition:name={`skill-animation-${title}`}
-								href={`${lang}/skill/${title}`}
+								href={`/${lang}/skill/${title}`}
 								title={title}
 								aria-label={title}
 								class="flex flex-col gap-2 justify-center items-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
