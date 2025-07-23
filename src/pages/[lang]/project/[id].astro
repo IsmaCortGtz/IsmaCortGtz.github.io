@@ -73,6 +73,7 @@ const content = withAbsoluteImages.replace(/<a\s+([^>]*?href=["'])([^"']+)(["'][
       <Image svgClass="project-cover" title={project.title} subtitle={project.subtitle} />
       <h4 class="project-details-title" set:html={project.title} />
       <h6 class="project-details-subtitle" set:html={project.subtitle} />
+      <span class={`project-details-status ${project?.status === "in_progress" ? "in_progress" : "completed"}`}>{ui.status[project?.status ?? 'completed']}</span>
 
       <div class="project-details-buttons">
         <a 

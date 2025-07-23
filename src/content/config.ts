@@ -35,6 +35,7 @@ const projects = defineCollection({
     title: z.string(),
     subtitle: z.string(),
     description: z.string(),
+    status: z.optional(z.enum(["in_progress", "completed"])),
     github: z.object({
       user: z.string(),
       repository: z.string(),
@@ -51,6 +52,10 @@ const ui = defineCollection({
     skills: z.string(),
     go_back: z.string(),
     view_github: z.string(),
+    status: z.object({
+      in_progress: z.string(),
+      completed: z.string(),
+    }),
   })
 });
 

@@ -2,5 +2,9 @@
   "projects": "Projects",
   "skills": "Skills",
   "go_back": "Go back",
-  "view_github": "View on GitHub"
+  "view_github": "View on GitHub",
+  "status": {
+    "in_progress": "In progress",
+    "completed": "Completed"
+  }
 }
