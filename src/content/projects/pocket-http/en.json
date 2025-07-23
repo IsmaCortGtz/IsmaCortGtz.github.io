@@ -1,0 +1,9 @@
+{
+  "id": "pocket-http",
+  "title": "Pocket HTTP",
+  "subtitle": "Lightweight C++ HTTP library",
+  "description": "A lightweight, cross-platform HTTP/HTTPS client library for C++17 in an ultra-compact package.",
+  "github": { "user": "IsmaCortGtz", "repository": "pocket-http", "branch": "master" },
+  "skills": ["C++", "Git", "Github"],
+  "status": "in_progress"
+}

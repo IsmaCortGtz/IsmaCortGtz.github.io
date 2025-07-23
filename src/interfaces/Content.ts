@@ -31,6 +31,7 @@ export interface Project {
   title: string;
   subtitle: string;
   description: string;
+  status?: 'completed' | 'in_progress';
   github: {
     user: string;
     repository: string;

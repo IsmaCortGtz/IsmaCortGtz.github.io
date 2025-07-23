@@ -6,6 +6,8 @@
 	--color-brand-hd: #061333;
 	--color-brand-box: #18263b;
 	--color-brand-light: #0d52bb;
+  --color-brand-yellow: #ddba2c;
+  --color-brand-green: #4caf50;
 }
 
 * {
@@ -44,6 +46,7 @@ section.project-details-card {
   grid-template: 
     "cover title" auto
     "cover subtitle" auto
+    "cover state" auto
     "cover buttons" auto
     "tags tags" auto
     "description description" auto
@@ -68,6 +71,27 @@ h6.project-details-subtitle {
   font-size: 1rem;
   font-style: italic;
   margin: 0;
+}
+
+span.project-details-status {
+  background-color: var(--color-brand-yellow);
+  color: color-mix(in oklab, var(--color-brand-yellow) 60%, black);
+  width: fit-content;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: help;
+  user-select: none;
+  border: 0.1rem solid color-mix(in oklab, var(--color-brand-yellow) 100%, black 30%);
+}
+
+
+span.project-details-status.completed {
+  background-color: var(--color-brand-green);
+  color: color-mix(in oklab, var(--color-brand-green) 60%, black);
+  border-color: color-mix(in srgb, var(--color-brand-green) 100%, black 30%);
 }
 
 div.project-details-buttons {
@@ -155,6 +179,7 @@ main {
       "cover" auto
       "title" auto
       "subtitle" auto
+      "status" auto
       "tags" auto
       "description" auto
       "buttons" auto;
