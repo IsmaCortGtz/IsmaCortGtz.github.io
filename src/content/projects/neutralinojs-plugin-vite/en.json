@@ -1,0 +1,8 @@
+{
+  "id": "neutralinojs-plugin-vite",
+  "title": "NeutralinoJS Vite Plugin",
+  "subtitle": "Vite Plugin for Neutralinojs",
+  "description": "A neu-cli plugin integrating Vite into Neutralinojs projects, offering instant HMR and support for multiple frontend frameworks like React, Vue, and Svelte.",
+  "github": { "user": "IsmaCortGtz", "repository": "neutralinojs-plugin-vite", "branch": "master" },
+  "skills": ["TypeScript", "JavaScript", "Neutralinojs", "Vite", "Git", "Github"]
+}
