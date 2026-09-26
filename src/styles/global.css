@@ -30,3 +30,19 @@ html, body {
 	color-scheme: dark;
 	font-family: 'CascadiaCode', 'Courier New', Courier, sans-serif;
 }
+
+/* =================================
+   View Transitions Polish & Fixes
+   ================================= */
+
+/* 1. Prevent dark mode ghosting/whitish halos during cross-fades */
+::view-transition-old(*),
+::view-transition-new(*) {
+	mix-blend-mode: normal;
+}
+
+/* 2. Consistent duration and smooth cubic-bezier easing for shared elements */
+::view-transition-group(*) {
+	animation-duration: 0.32s;
+	animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}

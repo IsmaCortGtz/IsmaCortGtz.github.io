@@ -8,11 +8,20 @@ interface Props {
 const { ui } = Astro.props;
 ---
 
-<header class="sticky top-2 z-50 border-2 mx-auto w-11/12 max-w-xs rounded-full border-brand-light/20 bg-brand-hd flex flex-row gap-4 items-center justify-center">
-  <a href="#projects" class="py-2 px-4 hover:bg-brand-box/50 rounded-full cursor-pointer transition-all">
+<header
+  transition:name="site-header"
+  class="sticky top-2 z-50 border border-brand-light/20 mx-auto w-[90%] max-w-xs rounded-full bg-brand-hd flex flex-row gap-4 items-center justify-center h-11"
+>
+  <a
+    href="#projects"
+    class="py-1.5 px-4 hover:bg-brand-box/50 rounded-full cursor-pointer transition-colors duration-200"
+  >
     {ui.projects}
   </a>
-  <a href="#skills" class="py-2 px-4 hover:bg-brand-box/50 rounded-full cursor-pointer transition-all">
+  <a
+    href="#skills"
+    class="py-1.5 px-4 hover:bg-brand-box/50 rounded-full cursor-pointer transition-colors duration-200"
+  >
     {ui.skills}
   </a>
 </header>

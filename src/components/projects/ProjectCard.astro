@@ -11,12 +11,17 @@ const { project, lang } = Astro.props;
 ---
 
 <a
-  transition:name={`project-cover-${project.id}`}
   href={`/${lang}/project/${project.id}`}
   title={project.description}
-  class="flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+  class="group flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light transition-transform duration-200 ease-out"
 >
-  <ProjectCover title={project.title} subtitle={project.subtitle} />
-  <h4 set:html={project.title} />
-  <p class="text-gray-500 line-clamp-3" set:html={project.description} />
+  <div transition:name={`project-cover-${project.id}`} class="w-full">
+    <ProjectCover title={project.title} subtitle={project.subtitle} />
+  </div>
+  <h4
+    transition:name={`project-title-${project.id}`}
+    class="font-semibold text-lg inline-block w-fit"
+    set:html={project.title}
+  />
+  <p class="text-gray-500 line-clamp-3 text-sm" set:html={project.description} />
 </a>

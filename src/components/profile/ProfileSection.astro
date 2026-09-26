@@ -21,7 +21,7 @@ const { profile } = Astro.props;
           aria-label={item.label}
           class="bg-brand-box/50 p-2 rounded-lg transition-all flex flex-row items-center gap-2 border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
         >
-          <i class={`${item.icon} text-2xl`} />
+          <i class={`${item.icon} text-2xl`}></i>
           <span set:html={item.label} />
         </a>
       ))}

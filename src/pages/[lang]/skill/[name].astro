@@ -4,6 +4,7 @@ import BackButtonHeader from "@/components/common/BackButtonHeader.astro";
 import ProjectCard from "@/components/projects/ProjectCard.astro";
 import { getSkillsStaticPaths, loadProjectsBySkill, loadSkillIcon } from "@/services/skills";
 import { loadUI } from "@/services/content";
+import { toTransitionName } from "@/utils/transition";
 
 export async function getStaticPaths() {
   return getSkillsStaticPaths();
@@ -19,19 +20,32 @@ const [ui, skillIcon, projects] = await Promise.all([
   loadSkillIcon(name, lang),
   loadProjectsBySkill(name, lang),
 ]);
+
+const iconTransitionName = toTransitionName("skill-icon", name);
+const nameTransitionName = toTransitionName("skill-name", name);
 ---
 
 <Layout title={name}>
   <BackButtonHeader label={ui.go_back} fallbackUrl={`/${lang}`} />
   <main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-10 pb-16">
     <section
-      transition:name={`skill-animation-${name}`}
       title={name}
       aria-label={name}
       class="flex flex-row items-center justify-center w-full gap-4 bg-brand-box/50 p-3 rounded-lg border border-brand-box/20"
     >
-      {skillIcon && <img class="w-18 rounded-lg" src={skillIcon} alt={name} />}
-      <span set:html={name} class="text-2xl font-bold" />
+      {skillIcon && (
+        <img
+          transition:name={iconTransitionName}
+          class="w-18 h-18 rounded-lg object-contain"
+          src={skillIcon}
+          alt={name}
+        />
+      )}
+      <span
+        transition:name={nameTransitionName}
+        set:html={name}
+        class="text-2xl font-bold inline-block"
+      />
     </section>
 
     <h2 id="projects" class="my-8 pb-4 border-b-2 border-b-brand-box/80 text-3xl flex items-center gap-2">
