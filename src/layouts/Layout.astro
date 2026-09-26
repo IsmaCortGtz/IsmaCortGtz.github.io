@@ -1,28 +1,39 @@
 ---
-import { ClientRouter } from 'astro:transitions';
-import '@/styles/global.css';
+import { ClientRouter } from "astro:transitions";
+import "@/styles/global.css";
 
 interface Props {
-	title?: string;
+  title?: string;
+  description?: string;
 }
 
-const { title = "Inicio" } = Astro.props as Props;
-const { lang } = Astro.params;
+const { title, description } = Astro.props;
+const { lang = "en" } = Astro.params;
+
+const pageTitle = title ? `IsmaCortGtz | ${title}` : "IsmaCortGtz";
 ---
 
 <!doctype html>
 <html lang={lang}>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>IsmaCortGtz | {title}</title>
-		<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
-		<ClientRouter />
-	</head>
-	<body class="bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.2),rgba(255,255,255,0))]">
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <ClientRouter />
+  </head>
+  <body class="bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.2),rgba(255,255,255,0))] min-h-screen">
+    <slot />
+  </body>
 </html>

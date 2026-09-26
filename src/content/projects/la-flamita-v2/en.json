@@ -4,5 +4,5 @@
   "subtitle": "Express, React, React Native & MongoDB",
   "description": "Redesign migrating from Laravel to Express-React. Additionally, the mobile app is now developed using React Native.",
   "github": { "user": "InterdataUTJ", "repository": "la-flamita", "branch": "master" },
-  "skills": ["JavaScript", "TypeScript", "Express", "React", "React Native", "C++", "Git", "Github", "Docker", "MongoDB"]
+  "skills": ["JavaScript", "TypeScript", "Express", "React", "React Native", "C++", "HTML", "CSS", "Vite", "Docker", "MongoDB", "Git", "Github"]
 }

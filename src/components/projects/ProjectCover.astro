@@ -1,0 +1,209 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  class?: string;
+}
+
+const { title, subtitle = "", class: className = "" } = Astro.props;
+
+// Layout calculation for SVG text to prevent overflow
+const MAX_WIDTH = 44; // Available width out of 52.916665 viewBox width
+
+function wrapText(text: string, maxCharsPerLine = 15): string[] {
+  if (text.length <= maxCharsPerLine) return [text];
+  const words = text.split(" ");
+  if (words.length <= 1) return [text];
+
+  // 2 words -> 2 lines
+  if (words.length === 2) {
+    return [words[0], words[1]];
+  }
+
+  // 3 words -> find the most balanced 2-line split
+  if (words.length === 3) {
+    const opt1 = [words[0], `${words[1]} ${words[2]}`];
+    const opt2 = [`${words[0]} ${words[1]}`, words[2]];
+    const diff1 = Math.abs(opt1[0].length - opt1[1].length);
+    const diff2 = Math.abs(opt2[0].length - opt2[1].length);
+    return diff1 <= diff2 ? opt1 : opt2;
+  }
+
+  // 4+ words -> greedy wrap with maxCharsPerLine
+  const lines: string[] = [];
+  let cur = words[0];
+  for (let i = 1; i < words.length; i++) {
+    if ((cur + " " + words[i]).length <= maxCharsPerLine) {
+      cur += " " + words[i];
+    } else {
+      lines.push(cur);
+      cur = words[i];
+    }
+  }
+  lines.push(cur);
+  return lines;
+}
+
+// Wrap title into multiple lines if longer than 15 chars
+let titleLines = [title];
+if (title.length > 15) {
+  titleLines = wrapText(title, 14);
+}
+
+// Calculate max line length
+const maxLineLength = Math.max(...titleLines.map((l) => l.length));
+
+// Compute font size based on lines count and longest line
+let titleFontSize = 6.0;
+if (titleLines.length === 1) {
+  titleFontSize = Math.min(6.0, MAX_WIDTH / (maxLineLength * 0.58));
+} else if (titleLines.length === 2) {
+  titleFontSize = Math.min(4.3, MAX_WIDTH / (maxLineLength * 0.58));
+} else {
+  titleFontSize = Math.min(3.2, MAX_WIDTH / (maxLineLength * 0.58));
+}
+titleFontSize = Math.round(titleFontSize * 100) / 100;
+
+// Subtitle font size auto-scaling
+let subFontSize = 2.11667;
+if (subtitle && subtitle.length > 28) {
+  subFontSize = Math.min(2.11667, MAX_WIDTH / (subtitle.length * 0.52));
+  subFontSize = Math.round(subFontSize * 100) / 100;
+}
+
+// Vertical positioning calculations (ViewBox height: 26.458)
+let titlePositions: number[] = [];
+let subtitleY = 18.0;
+
+if (subtitle) {
+  if (titleLines.length === 1) {
+    titlePositions = [11.8];
+    subtitleY = 17.5;
+  } else if (titleLines.length === 2) {
+    const lineHeight = titleFontSize * 1.25;
+    const startY = 11.8 - lineHeight / 2;
+    titlePositions = [
+      Math.round(startY * 100) / 100,
+      Math.round((startY + lineHeight) * 100) / 100,
+    ];
+    subtitleY = 18.8;
+  } else {
+    const lineHeight = titleFontSize * 1.2;
+    const startY = 10.5 - lineHeight;
+    titlePositions = titleLines.map(
+      (_, i) => Math.round((startY + i * lineHeight) * 100) / 100
+    );
+    subtitleY = 19.8;
+  }
+} else {
+  if (titleLines.length === 1) {
+    titlePositions = [13.23];
+  } else if (titleLines.length === 2) {
+    const lineHeight = titleFontSize * 1.25;
+    titlePositions = [
+      Math.round((13.23 - lineHeight / 2) * 100) / 100,
+      Math.round((13.23 + lineHeight / 2) * 100) / 100,
+    ];
+  } else {
+    const lineHeight = titleFontSize * 1.2;
+    titlePositions = titleLines.map(
+      (_, i) => Math.round((13.23 - lineHeight + i * lineHeight) * 100) / 100
+    );
+  }
+}
+---
+
+<svg
+  viewBox="0 0 52.916665 26.458333"
+  version="1.1"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns="http://www.w3.org/2000/svg"
+  class={`w-full mx-auto rounded-lg aspect-2/1 ${className}`}
+  aria-hidden="true"
+>
+  <defs>
+    <linearGradient id="linearGradient925">
+      <stop style="stop-color:#fef4cd;stop-opacity:1;" offset="0" />
+      <stop style="stop-color:#fffdf5;stop-opacity:1;" offset="1" />
+    </linearGradient>
+    <radialGradient
+      xlink:href="#linearGradient925"
+      id="radialGradient927"
+      cx="26.458332"
+      cy="13.229166"
+      fx="26.458332"
+      fy="13.229166"
+      r="26.458332"
+      gradientTransform="matrix(1,0,0,0.5,0,6.614583)"
+      gradientUnits="userSpaceOnUse"
+    />
+  </defs>
+  <rect
+    style="fill:#fff5cc;stroke-width:1.69921;fill-opacity:1"
+    width="100%"
+    height="100%"
+    x="0"
+    y="0"
+  />
+  <path
+    style="fill:none;fill-opacity:1;stroke-width:1.05833331;stroke-dasharray:none;stroke:#ffea99;stroke-opacity:1"
+    d="M 6.1544385,4.7108046 4.1961423,5.8899812 2.0532471,5.0941282 1.3393968,2.9225391 2.5921351,1.0104647 4.8681246,0.79773616 6.4534988,2.4445423 Z"
+    transform="translate(4.4828626,1.6715758)"
+  />
+  <path
+    style="fill:none;fill-opacity:1;stroke-width:0.53096332;stroke:#ffea99;stroke-opacity:1;stroke-dasharray:none"
+    d="M 6.1544385,4.7108046 3.8024946,5.8972235 1.5990537,4.4535899 1.7475567,1.8235372 4.0995006,0.63711828 6.3029415,2.080752 Z"
+    transform="matrix(1.984628,-0.18500613,0.18500613,1.984628,5.4413255,13.297869)"
+  />
+  <path
+    style="fill:none;fill-opacity:1;stroke:#ffea99;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1"
+    d="m 47.130083,24.705819 -3.541272,-2.337652 1.128925,-4.090324 4.238987,-0.190307 1.490912,3.972708 z"
+  />
+  <path
+    style="fill:none;fill-opacity:1;stroke:#ffea99;stroke-width:1.05833;stroke-dasharray:none;stroke-opacity:1"
+    d="M 38.602852,15.330985 25.676527,11.237874 35.684427,2.0899042 Z"
+  />
+  <g>
+    {titleLines.map((line, idx) => {
+      const estimatedWidth = line.length * titleFontSize * 0.58;
+      const needsLengthAdjust = estimatedWidth > MAX_WIDTH;
+      return (
+        <text
+          xml:space="preserve"
+          style={`font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:${titleFontSize}px;font-family:sans-serif;dominant-baseline:middle;text-anchor:middle;fill:#ba9512;fill-opacity:1;stroke-width:0.264583;stroke-dasharray:none`}
+          x="50%"
+          y={titlePositions[idx]}
+          dominant-baseline="middle"
+          text-anchor="middle"
+          textLength={needsLengthAdjust ? MAX_WIDTH : undefined}
+          lengthAdjust={needsLengthAdjust ? "spacingAndGlyphs" : undefined}
+        >
+          <tspan
+            style={`font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:${titleFontSize}px;font-family:sans-serif;text-align:center;fill:#ba9512;fill-opacity:1;stroke-width:0.264583;stroke-dasharray:none`}
+          >
+            {line}
+          </tspan>
+        </text>
+      );
+    })}
+
+    {subtitle && (
+      <text
+        xml:space="preserve"
+        style={`font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:${subFontSize}px;font-family:sans-serif;dominant-baseline:middle;text-anchor:middle;fill:#ba9512;fill-opacity:1;stroke-width:0.264583;stroke-dasharray:none`}
+        x="50%"
+        y={subtitleY}
+        dominant-baseline="middle"
+        text-anchor="middle"
+        textLength={subtitle.length * subFontSize * 0.52 > MAX_WIDTH ? MAX_WIDTH : undefined}
+        lengthAdjust={subtitle.length * subFontSize * 0.52 > MAX_WIDTH ? "spacingAndGlyphs" : undefined}
+      >
+        <tspan
+          style={`font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:${subFontSize}px;font-family:sans-serif;text-align:center;fill:#ba9512;fill-opacity:1;stroke-width:0.264583;stroke-dasharray:none`}
+        >
+          {subtitle}
+        </tspan>
+      </text>
+    )}
+  </g>
+</svg>

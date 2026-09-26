@@ -4,5 +4,5 @@
   "subtitle": "React Native & Transformers.js",
   "description": "App to run LLM locally with react-native and transformers.js even without internet connection.",
   "github": { "user": "IsmaCortGtz", "repository": "Ask.ai", "branch": "main" },
-  "skills": ["TypeScript", "JavaScript", "React Native", "Git", "Github"]
+  "skills": ["TypeScript", "JavaScript", "React", "React Native", "Kotlin", "Git", "Github"]
 }

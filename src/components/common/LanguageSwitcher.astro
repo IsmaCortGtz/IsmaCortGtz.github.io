@@ -1,0 +1,74 @@
+---
+interface Props {
+  currentLang?: string;
+  class?: string;
+}
+
+const { currentLang: propLang, class: className = "" } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const detectedLang = pathname.startsWith("/es") ? "es" : "en";
+const currentLang = propLang || (Astro.params.lang as string) || detectedLang;
+
+function getTargetUrl(targetLang: string): string {
+  if (!pathname.startsWith("/es") && !pathname.startsWith("/en")) {
+    const cleanPath = pathname === "/" ? "" : pathname;
+    return `/${targetLang}${cleanPath}`;
+  }
+  return pathname.replace(/^\/(es|en)(\/|$)/, `/${targetLang}$2`);
+}
+
+const esUrl = getTargetUrl("es");
+const enUrl = getTargetUrl("en");
+---
+
+<div
+  class={`inline-flex items-center bg-brand-box/60 border border-brand-light/30 rounded-full p-0.5 text-xs font-semibold select-none ${className}`}
+  role="group"
+  aria-label="Language selector"
+>
+  <a
+    href={esUrl}
+    data-lang-switch="es"
+    class={`px-2 py-0.5 rounded-full transition-all duration-200 cursor-pointer ${
+      currentLang === "es"
+        ? "bg-brand-light text-white shadow-sm"
+        : "text-brand-text/70 hover:text-brand-text hover:bg-brand-box"
+    }`}
+    aria-current={currentLang === "es" ? "page" : undefined}
+    aria-label="Cambiar a Español"
+  >
+    ES
+  </a>
+  <a
+    href={enUrl}
+    data-lang-switch="en"
+    class={`px-2 py-0.5 rounded-full transition-all duration-200 cursor-pointer ${
+      currentLang === "en"
+        ? "bg-brand-light text-white shadow-sm"
+        : "text-brand-text/70 hover:text-brand-text hover:bg-brand-box"
+    }`}
+    aria-current={currentLang === "en" ? "page" : undefined}
+    aria-label="Switch to English"
+  >
+    EN
+  </a>
+</div>
+
+<script>
+  function setupLangSwitchers() {
+    document.querySelectorAll("[data-lang-switch]").forEach((el) => {
+      el.addEventListener("click", () => {
+        const lang = el.getAttribute("data-lang-switch");
+        if (lang) {
+          try {
+            localStorage.setItem("preferred-lang", lang);
+          } catch {}
+        }
+      });
+    });
+  }
+
+  setupLangSwitchers();
+  document.addEventListener("astro:page-load", setupLangSwitchers);
+</script>

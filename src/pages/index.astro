@@ -3,8 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="refresh" content="0; url=/en" />
 	<title>IsmaCortGtz</title>
+	<script is:inline>
+		try {
+			const saved = localStorage.getItem("preferred-lang");
+			if (saved === "es" || saved === "en") {
+				window.location.replace("/" + saved);
+			} else {
+				const browserLang = (navigator.language || "").toLowerCase();
+				window.location.replace(browserLang.startsWith("es") ? "/es" : "/en");
+			}
+		} catch (e) {
+			window.location.replace("/en");
+		}
+	</script>
+	<meta http-equiv="refresh" content="0; url=/en" />
 </head>
 <body></body>
 </html>

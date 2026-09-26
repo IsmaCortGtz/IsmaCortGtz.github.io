@@ -1,0 +1,8 @@
+{
+  "id": "home-controller",
+  "title": "Home Controller",
+  "subtitle": "Servidor de control en Rust",
+  "description": "Servidor HTTP y WebSocket ultraligero de binario único desarrollado en Rust para monitorear procesos y controlar aplicaciones en una máquina host desde cualquier navegador.",
+  "github": { "user": "IsmaCortGtz", "repository": "home-controller", "branch": "master" },
+  "skills": ["Rust", "JavaScript", "HTML", "CSS", "Linux", "Git", "Github"]
+}

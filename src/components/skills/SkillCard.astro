@@ -1,0 +1,33 @@
+---
+import { toTransitionName } from "@/utils/transition";
+
+interface Props {
+  name: string;
+  icon: string;
+  lang: string;
+}
+
+const { name, icon, lang } = Astro.props;
+const iconTransitionName = toTransitionName("skill-icon", name);
+const nameTransitionName = toTransitionName("skill-name", name);
+---
+
+<a
+  href={`/${lang}/skill/${name}`}
+  title={name}
+  aria-label={name}
+  class="group flex flex-col gap-2 justify-center items-center bg-brand-box/50 p-3 rounded-lg border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light transition-transform duration-200 ease-out"
+>
+  <img
+    transition:name={iconTransitionName}
+    class="w-1/2 aspect-square mx-auto rounded-lg object-contain"
+    src={icon}
+    alt={name}
+    loading="lazy"
+  />
+  <span
+    transition:name={nameTransitionName}
+    class="inline-block"
+    set:html={name}
+  />
+</a>

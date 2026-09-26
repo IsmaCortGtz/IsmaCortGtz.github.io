@@ -1,0 +1,8 @@
+{
+  "id": "home-controller",
+  "title": "Home Controller",
+  "subtitle": "Rust Monitoring & Control Server",
+  "description": "An ultra-lightweight, single-binary HTTP and WebSocket server written in Rust to monitor processes and control applications on a host machine from any browser.",
+  "github": { "user": "IsmaCortGtz", "repository": "home-controller", "branch": "master" },
+  "skills": ["Rust", "JavaScript", "HTML", "CSS", "Linux", "Git", "Github"]
+}

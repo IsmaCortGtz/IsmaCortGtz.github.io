@@ -9,10 +9,14 @@
     "astro": "astro",
     "deploy": "gh workflow run deploy.yml --ref Production"
   },
+  "author": {
+    "name": "Ismael Cortés Gutiérrez",
+    "url": "https://github.com/IsmaCortGtz/"
+  },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.3",
-    "astro": "^5.6.1",
-    "marked": "^15.0.8",
-    "tailwindcss": "^4.1.3"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.5",
+    "marked": "^18.0.14",
+    "tailwindcss": "^4.3.3"
   }
 }

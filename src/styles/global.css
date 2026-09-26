@@ -7,6 +7,7 @@
 	--color-brand-box: #18263b;
 	--color-brand-light: #0d52bb;
 	--color-brand-yellow: #e6b800;
+	--color-brand-green: #4caf50;
 }
 
 * {
@@ -28,4 +29,20 @@ html, body {
 	color: var(--color-brand-text);
 	color-scheme: dark;
 	font-family: 'CascadiaCode', 'Courier New', Courier, sans-serif;
+}
+
+/* =================================
+   View Transitions Polish & Fixes
+   ================================= */
+
+/* 1. Prevent dark mode ghosting/whitish halos during cross-fades */
+::view-transition-old(*),
+::view-transition-new(*) {
+	mix-blend-mode: normal;
+}
+
+/* 2. Consistent duration and smooth cubic-bezier easing for shared elements */
+::view-transition-group(*) {
+	animation-duration: 0.32s;
+	animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
 }

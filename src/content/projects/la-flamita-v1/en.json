@@ -4,5 +4,5 @@
   "subtitle": "Laravel, Kotlin & Mysql",
   "description": "Administrative software and for clients of a taquería. ",
   "github": { "user": "InterdataUTJ", "repository": "la-flamita", "branch": "la-flamita-v1.0" },
-  "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Laravel", "Kotlin", "C++", "Git", "Github"]
+  "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Laravel", "Kotlin", "C++", "Vite", "Git", "Github"]
 }
