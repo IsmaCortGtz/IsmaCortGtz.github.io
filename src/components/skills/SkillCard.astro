@@ -1,0 +1,20 @@
+---
+interface Props {
+  name: string;
+  icon: string;
+  lang: string;
+}
+
+const { name, icon, lang } = Astro.props;
+---
+
+<a
+  transition:name={`skill-animation-${name}`}
+  href={`/${lang}/skill/${name}`}
+  title={name}
+  aria-label={name}
+  class="flex flex-col gap-2 justify-center items-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+>
+  <img class="w-1/2 mx-auto rounded-lg" src={icon} alt={name} loading="lazy" />
+  <span set:html={name} />
+</a>

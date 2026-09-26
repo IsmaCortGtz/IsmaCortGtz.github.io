@@ -1,64 +1,48 @@
 ---
-import { getSkillsParams } from "@/utils/dynamicParams";
+import Layout from "@/layouts/Layout.astro";
+import BackButtonHeader from "@/components/common/BackButtonHeader.astro";
+import ProjectCard from "@/components/projects/ProjectCard.astro";
+import { getSkillsStaticPaths, loadProjectsBySkill, loadSkillIcon } from "@/services/skills";
+import { loadUI } from "@/services/content";
 
 export async function getStaticPaths() {
-  return getSkillsParams();
+  return getSkillsStaticPaths();
 }
 
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header/project.astro";
-import Image from "@/components/Project/image.astro";
-import type { Skills } from "@/interfaces/Content";
-import { loadCollection, loadProjects, loadUI } from "@/utils/loadCollection";
-import flatSkills from "@/utils/flatSkills";
+const { lang, name } = Astro.params;
+if (!lang || !name) {
+  throw new Error("Language and skill name are required");
+}
 
-const { lang } = Astro.params;
-if (!lang) throw new Error("Language parameter is required");
-
-const skills   = await loadCollection<Skills>('skills',   lang);
-const skillList = flatSkills(skills);
-const projects = await loadProjects(lang);
-
-const { name } = Astro.params;
-const projectsList = projects.filter(project => project.skills.includes(name));
-const ui = await loadUI(lang);
+const [ui, skillIcon, projects] = await Promise.all([
+  loadUI(lang),
+  loadSkillIcon(name, lang),
+  loadProjectsBySkill(name, lang),
+]);
 ---
 
-<Layout>
-  <Header />
-  <main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-10 pb-10">
+<Layout title={name}>
+  <BackButtonHeader label={ui.go_back} fallbackUrl={`/${lang}`} />
+  <main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-10 pb-16">
     <section
       transition:name={`skill-animation-${name}`}
       title={name}
       aria-label={name}
       class="flex flex-row items-center justify-center w-full gap-4 bg-brand-box/50 p-3 rounded-lg border border-brand-box/20"
     >
-      <img class="w-18 rounded-lg" src={skillList[name]} />
-      <span set:html={name} class="text-2xl" />
+      {skillIcon && <img class="w-18 rounded-lg" src={skillIcon} alt={name} />}
+      <span set:html={name} class="text-2xl font-bold" />
     </section>
 
-
-		<h2 id="projects" class="my-8 pb-4 border-b-2 border-b-brand-box/80 text-3xl flex items-center gap-2">
-			<i class="ti ti-settings-filled"></i>
-			{ui.projects}
-		</h2>
+    <h2 id="projects" class="my-8 pb-4 border-b-2 border-b-brand-box/80 text-3xl flex items-center gap-2">
+      <i class="ti ti-settings-filled"></i>
+      {ui.projects}
+    </h2>
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
-			{
-				projectsList.map((project, idx) => (
-					<a
-					  transition:name={`project-cover-${project.id}`}
-						href={`../project/${project.id}`}
-						title={project.description}
-						class="flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
-					>
-						<Image title={project.title} subtitle={project.subtitle} />
-						<h4 set:html={project.title} />
-						<p class="text-gray-500 line-clamp-3" set:html={project.description} />
-					</a>
-				))
-			}
-		</section>
-
+      {projects.map((project) => (
+        <ProjectCard project={project} lang={lang} />
+      ))}
+    </section>
   </main>
 </Layout>

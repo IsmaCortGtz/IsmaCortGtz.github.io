@@ -1,0 +1,40 @@
+---
+interface Props {
+  label: string;
+  fallbackUrl?: string;
+}
+
+const { label, fallbackUrl = "/" } = Astro.props;
+---
+
+<header class="sticky top-2 z-50 border border-brand-light/20 mx-auto w-[90%] max-w-xs rounded-full bg-brand-hd flex flex-row gap-4 items-center justify-center">
+  <button
+    type="button"
+    id="back-button"
+    data-fallback-url={fallbackUrl}
+    class="text-brand-text py-2 px-4 rounded-full transition-all duration-300 cursor-pointer hover:bg-brand-box/50"
+    aria-label={label}
+  >
+    {label}
+  </button>
+</header>
+
+<script>
+  function setupBackButton() {
+    const button = document.getElementById("back-button");
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        const fallback = button.getAttribute("data-fallback-url") || "/";
+        window.location.href = fallback;
+      }
+    });
+  }
+
+  // Support initial load and Astro client-side navigation (View Transitions)
+  setupBackButton();
+  document.addEventListener("astro:page-load", setupBackButton);
+</script>

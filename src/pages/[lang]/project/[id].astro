@@ -1,102 +1,33 @@
 ---
-import { getProjectsParams } from "@/utils/dynamicParams";
+import Layout from "@/layouts/Layout.astro";
+import BackButtonHeader from "@/components/common/BackButtonHeader.astro";
+import ProjectDetails from "@/components/projects/ProjectDetails.astro";
+import MarkdownArticle from "@/components/markdown/MarkdownArticle.astro";
+import { getProjectsStaticPaths, loadProject } from "@/services/projects";
+import { loadUI } from "@/services/content";
+import { getProjectReadmeHtml } from "@/services/github";
 
 export async function getStaticPaths() {
-  return getProjectsParams();
+  return getProjectsStaticPaths();
 }
 
-import Header from "@/components/Header/project.astro";
-import { loadProject, loadUI } from "@/utils/loadCollection";
-import { marked } from "marked";
-import Layout from "@/layouts/Markdown.astro";
-import Image from "@/components/Project/image.astro";
-
-const { id } = Astro.params;
-const { lang } = Astro.params;
-
-if (!id || !lang) throw new Error("Project ID and language must be provided");
-const project = await loadProject(id, lang);
-if (!project) throw new Error(`Project with id ${id} not found`);
-
-const publicBaseUrl = `https://github.com/${project.github.user}/${project.github.repository}/blob/${project.github.branch}/`;
-const baseUrl = `https://raw.githubusercontent.com/${project.github.user}/${project.github.repository}/refs/heads/${project.github.branch}/`;
-
-let response;
-try {
-  response = await fetch(baseUrl + `README.${lang}.md`);
-  if (!response.ok) throw new Error(`Failed to fetch README.${lang}.md for project ${id}: ${response.statusText}`);
-} catch (error) {
-  response = await fetch(baseUrl + "README.md");
-    if (!response.ok) throw new Error(`Failed to fetch README.md for project ${id}: ${response.statusText}, ${response.url}`);
+const { id, lang } = Astro.params;
+if (!id || !lang) {
+  throw new Error("Project ID and language must be provided");
 }
 
-if (!response.ok) throw new Error(`Failed to fetch README.md for project ${id}: ${response.statusText}`);
-const markdown = await response.text();
-let html = await marked.parse(markdown);
+const [project, ui] = await Promise.all([
+  loadProject(id, lang),
+  loadUI(lang),
+]);
 
-// Custom style for admonitions to match github style
-html = html.replace(
-  /<blockquote>\s*<p>\[!(NOTE|INFO|WARNING|TIP|IMPORTANT)\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
-  (match, type, content) => {
-    const lower = type.toLowerCase();
-    return `<blockquote class="admonition admonition-${lower}">
-      <header>
-        <span class="admonition-icon"></span>
-        <strong class="admonition-title">${type.charAt(0) + type.slice(1).toLowerCase()}</strong>  
-      </header>
-      <span class="admonition-content">${content.trim()}</span>
-    </blockquote>`;
-  }
-);
-
-const ui = await loadUI(lang);
-
-// Reemplazar enlaces relativos en etiquetas <img>
-const withAbsoluteImages = html.replace(/<img\s+([^>]*?src=["'])([^"']+)(["'][^>]*?)>/g, (match, beforeSrc, src, afterSrc) => {
-  const absoluteUrl = new URL(src, baseUrl).href;
-  return `<img ${beforeSrc}${absoluteUrl}${afterSrc}>`;
-});
-
-// Reemplazar enlaces relativos en etiquetas <a>
-const content = withAbsoluteImages.replace(/<a\s+([^>]*?href=["'])([^"']+)(["'][^>]*?)>/g, (match, beforeHref, href, afterHref) => {
-  if (!href.startsWith("http") && !href.startsWith("#")) {
-    const absoluteUrl = new URL(href, publicBaseUrl).href;
-    return `<a ${beforeHref}${absoluteUrl}${afterHref}>`;
-  }
-  return match;
-});
+const readmeHtml = await getProjectReadmeHtml(project, lang);
 ---
-<Layout>
-  <Header />
-	<main>
-    <section transition:name={`project-cover-${id}`} class="project-details-card">
-      <Image svgClass="project-cover" title={project.title} subtitle={project.subtitle} />
-      <h4 class="project-details-title" set:html={project.title} />
-      <h6 class="project-details-subtitle" set:html={project.subtitle} />
-      <span class={`project-details-status ${project?.status === "in_progress" ? "in_progress" : "completed"}`}>{ui.status[project?.status ?? 'completed']}</span>
 
-      <div class="project-details-buttons">
-        <a 
-          class="project-details-button" 
-          href={`https://github.com/${project.github.user}/${project.github.repository}/tree/${project.github.branch}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Ver en Github"
-        >
-          <i class="devicon-github-original" />
-          {ui.view_github}
-        </a>
-      </div>
-
-      <div class="project-details-tags">
-        {project.skills?.map((tag) => (
-          <a href={`../skill/${tag}`} class="project-details-tag" set:html={tag} />
-        ))}
-      </div>
-
-      <p class="prokect-details-description text-gray-500 line-clamp-3" set:html={project.description} />
-    </section>
-
-    <article class="markdown-container" set:html={content} />
+<Layout title={project.title} description={project.description}>
+  <BackButtonHeader label={ui.go_back} fallbackUrl={`/${lang}`} />
+  <main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-10 pb-16">
+    <ProjectDetails project={project} ui={ui} lang={lang} />
+    <MarkdownArticle content={readmeHtml} />
   </main>
 </Layout>

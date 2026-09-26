@@ -1,0 +1,35 @@
+---
+import type { Profile } from "@/interfaces/Content";
+
+interface Props {
+  profile: Profile;
+}
+
+const { profile } = Astro.props;
+---
+
+<section class="flex flex-col-reverse md:flex-row gap-10 items-center justify-center mb-10">
+  <div class="flex-1">
+    <h2 class="text-3xl mb-4" set:html={profile.title} />
+    <p class="leading-7" set:html={profile.description} />
+    <div class="flex flex-row gap-4 mt-4 items-center flex-wrap">
+      {profile.social.map((item) => (
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={item.label}
+          class="bg-brand-box/50 p-2 rounded-lg transition-all flex flex-row items-center gap-2 border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+        >
+          <i class={`${item.icon} text-2xl`} />
+          <span set:html={item.label} />
+        </a>
+      ))}
+    </div>
+  </div>
+  <img
+    class="rounded-full w-3xs border-2 border-brand-light/10"
+    src={profile.avatar}
+    alt={profile.title}
+  />
+</section>

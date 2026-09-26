@@ -1,0 +1,22 @@
+---
+import type { Project } from "@/interfaces/Content";
+import ProjectCover from "./ProjectCover.astro";
+
+interface Props {
+  project: Project;
+  lang: string;
+}
+
+const { project, lang } = Astro.props;
+---
+
+<a
+  transition:name={`project-cover-${project.id}`}
+  href={`/${lang}/project/${project.id}`}
+  title={project.description}
+  class="flex flex-col gap-2 justify-center bg-brand-box/50 p-3 rounded-lg transition-all border border-brand-box/20 hover:scale-[1.02] hover:bg-brand-box/100 hover:border-brand-light"
+>
+  <ProjectCover title={project.title} subtitle={project.subtitle} />
+  <h4 set:html={project.title} />
+  <p class="text-gray-500 line-clamp-3" set:html={project.description} />
+</a>

@@ -1,0 +1,11 @@
+---
+import "@/styles/markdown.css";
+
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+---
+
+<article class="markdown-container" set:html={content} />
