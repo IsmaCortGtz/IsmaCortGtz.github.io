@@ -4,6 +4,6 @@
   "subtitle": "React Native & Neutralinojs",
   "description": "Ecosistema para desarrollar aplicaciones de escritorio ultraligeras y multiplataforma con React Native y el runtime Neutralinojs, usando Vite para empaquetado instantáneo con HMR.",
   "github": { "user": "IsmaCortGtz", "repository": "react-native-neutralinojs", "branch": "master" },
-  "skills": ["TypeScript", "JavaScript", "React Native", "Neutralinojs", "Vite", "Git", "Github"],
+  "skills": ["TypeScript", "JavaScript", "React", "React Native", "Neutralinojs", "Vite", "Git", "Github"],
   "status": "in_progress"
 }

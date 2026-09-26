@@ -4,6 +4,6 @@
   "subtitle": "React Native & Neutralinojs",
   "description": "An ecosystem to build lightweight, cross-platform desktop applications using React Native and the Neutralinojs runtime, powered by Vite for instant bundling and HMR.",
   "github": { "user": "IsmaCortGtz", "repository": "react-native-neutralinojs", "branch": "master" },
-  "skills": ["TypeScript", "JavaScript", "React Native", "Neutralinojs", "Vite", "Git", "Github"],
+  "skills": ["TypeScript", "JavaScript", "React", "React Native", "Neutralinojs", "Vite", "Git", "Github"],
   "status": "in_progress"
 }

@@ -4,5 +4,5 @@
   "subtitle": "Laravel, React, Go & WebRTC",
   "description": "Plataforma educativa en línea con capacidades de videollamadas en tiempo real mediante WebRTC con servidor SFU propio desarrollado en Go, frontend en React y backend en Laravel.",
   "github": { "user": "IsmaCortGtz", "repository": "ConnectED", "branch": "master" },
-  "skills": ["PHP", "Laravel", "Go", "React", "TypeScript", "JavaScript", "WebRTC", "MySQL", "Vite", "Git", "Github"]
+  "skills": ["PHP", "Laravel", "Go", "React", "TypeScript", "JavaScript", "HTML", "CSS", "WebRTC", "MySQL", "Vite", "Git", "Github"]
 }
