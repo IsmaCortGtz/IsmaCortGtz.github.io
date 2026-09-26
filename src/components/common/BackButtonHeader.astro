@@ -1,25 +1,33 @@
 ---
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+
 interface Props {
   label: string;
   fallbackUrl?: string;
+  lang?: string;
 }
 
-const { label, fallbackUrl = "/" } = Astro.props;
+const { label, fallbackUrl = "/", lang } = Astro.props;
 ---
 
 <header
   transition:name="site-header"
-  class="sticky top-2 z-50 border border-brand-light/20 mx-auto w-[90%] max-w-xs rounded-full bg-brand-hd flex flex-row gap-4 items-center justify-center h-11"
+  class="sticky top-2 z-50 border border-brand-light/20 mx-auto w-[92%] max-w-xs rounded-full bg-brand-hd flex flex-row items-center justify-between px-3 h-11 shadow-lg shadow-black/20"
 >
   <button
     type="button"
     id="back-button"
     data-fallback-url={fallbackUrl}
-    class="text-brand-text py-1.5 px-4 rounded-full transition-colors duration-200 cursor-pointer hover:bg-brand-box/50"
+    class="text-brand-text py-1.5 px-3 rounded-full transition-colors duration-200 cursor-pointer hover:bg-brand-box/50 flex items-center gap-1.5 text-sm"
     aria-label={label}
   >
-    {label}
+    <i class="ti ti-arrow-left text-base"></i>
+    <span>{label}</span>
   </button>
+
+  <div class="flex items-center pl-2 border-l border-brand-light/20">
+    <LanguageSwitcher currentLang={lang} />
+  </div>
 </header>
 
 <script>

@@ -25,7 +25,7 @@ const readmeHtml = await getProjectReadmeHtml(project, lang);
 ---
 
 <Layout title={project.title} description={project.description}>
-  <BackButtonHeader label={ui.go_back} fallbackUrl={`/${lang}`} />
+  <BackButtonHeader label={ui.go_back} fallbackUrl={`/${lang}`} lang={lang} />
   <main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-10 pb-16">
     <ProjectDetails project={project} ui={ui} lang={lang} />
     <MarkdownArticle content={readmeHtml} />

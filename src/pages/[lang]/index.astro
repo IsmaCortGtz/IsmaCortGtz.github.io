@@ -25,7 +25,7 @@ const [profile, skills, projects, ui] = await Promise.all([
 ---
 
 <Layout title={profile.title} description={profile.description}>
-  <Header ui={ui} />
+  <Header ui={ui} lang={lang} />
   <main class="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-2 pt-20 pb-16">
     <ProfileSection profile={profile} />
 
