@@ -4,5 +4,6 @@
   "subtitle": "Vanilla PHP & MySQL",
   "description": "Internal management system for a veterinary clinic. Allows you to manage employees, clients, pets, inventory, and sales/services. Reports can be generated.",
   "github": { "user": "InterdataUTJ", "repository": "los-caninos", "branch": "master" },
-  "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Git", "Github"]
+  "skills": ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Git", "Github"],
+  "order": 10
 }

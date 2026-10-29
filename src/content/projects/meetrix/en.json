@@ -1,0 +1,10 @@
+{
+  "id": "meetrix",
+  "title": "Meetrix",
+  "subtitle": "Go, WebRTC & TypeScript",
+  "description": "Extensible WebRTC video conferencing & SFU media server in Go with embedded STUN/TURN server, Google Meet-style moderation and permissions, and universal TypeScript SDK.",
+  "github": { "user": "IsmaCortGtz", "repository": "meetrix", "branch": "main" },
+  "skills": ["Go", "TypeScript", "JavaScript", "WebRTC", "HTML", "CSS", "Docker", "Git", "Github"],
+  "order": 2
+}
+
