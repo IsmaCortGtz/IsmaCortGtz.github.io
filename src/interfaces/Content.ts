@@ -42,6 +42,7 @@ export interface Project {
   status?: 'completed' | 'in_progress';
   github: ProjectGithub;
   skills: string[];
+  order?: number;
 }
 
 export type Projects = Project[];
