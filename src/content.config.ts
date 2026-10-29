@@ -42,6 +42,7 @@ const projects = defineCollection({
       branch: z.string(),
     }),
     skills: z.array(z.string()),
+    order: z.optional(z.number()),
   })
 });
 
